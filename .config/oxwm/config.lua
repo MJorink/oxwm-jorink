@@ -121,6 +121,7 @@ oxwm.gaps.set_outer(0, 0)
 -- oxwm.rule.add({ class = "Alacritty", tag = 9, focus = true })
 -- oxwm.rule.add({ class = "firefox", title = "Library", floating = true })
 -- oxwm.rule.add({ class = "firefox", tag = 2 })
+oxwm.rule.add({ class = "gamescope", tag = 9 })
 -- oxwm.rule.add({ instance = "mpv", floating = true })
 
 -- To find window properties, use xprop and click on the window
@@ -156,7 +157,8 @@ oxwm.bar.set_hide_vacant_tags(true)
 
 oxwm.key.bind({ modkey }, "Q", oxwm.spawn_terminal())
 -- Launch Dmenu
-oxwm.key.bind({ modkey }, "Space", oxwm.spawn({ "sh", "-c", "dmenu_run -l 10" }))
+oxwm.key.bind({ modkey, "Control" }, "Space", oxwm.spawn({ "sh", "-c", "dmenu_run -l 10" }))
+oxwm.key.bind({ modkey }, "Space", oxwm.spawn({ "rofi -show drun" }))
 -- Copy screenshot to clipboard
 oxwm.key.bind({ modkey, "Shift" }, "S", oxwm.spawn({ "sh", "-c", "maim -s | xclip -selection clipboard -t image/png" }))
 oxwm.key.bind({ modkey }, "W", oxwm.client.kill())
@@ -171,6 +173,7 @@ oxwm.key.bind({ modkey, "Shift" }, "Space", oxwm.client.toggle_floating())
 -- Layout management
 -- oxwm.key.bind({ modkey }, "F", oxwm.layout.set("normie"))
 oxwm.key.bind({ modkey }, "T", oxwm.layout.set("tiling"))
+oxwm.key.bind({ modkey }, "G", oxwm.layout.set("grid"))
 -- Cycle through layouts
 oxwm.key.bind({ modkey }, "N", oxwm.layout.cycle())
 
@@ -262,7 +265,12 @@ oxwm.key.bind({ modkey, "Control", "Shift" }, "9", oxwm.tag.toggletag(8))
 oxwm.key.bind({ modkey }, "B", oxwm.spawn({ "waterfox" }))
 oxwm.key.bind({ modkey }, "E", oxwm.spawn({ "thunar" }))
 oxwm.key.bind({ modkey }, "L", oxwm.spawn({ "~/.local/bin/lock.sh" }))
+oxwm.key.bind({ modkey, "Shift" }, "P", oxwm.spawn({ "~/.local/bin/dunst-cpu.sh performance" }))
+oxwm.key.bind({ modkey, "Control" }, "P", oxwm.spawn({ "~/.local/bin/dunst-cpu.sh powersaver" }))
+oxwm.key.bind({ modkey, "Control" }, "S", oxwm.spawn({ "gamescope -w 1920 -h 1080 -r 144 steam" }))
 oxwm.key.bind({ modkey, "Shift" }, "W", oxwm.spawn({ "feh --bg-scale --randomize ~/Pictures/Wallpapers/*" }))
+
+
 
 -- Volume/Brightness with dunst script
 oxwm.key.bind({ }, "XF86AudioRaiseVolume", oxwm.spawn({ "~/.local/bin/dunst-volume.sh +5%" }))
@@ -290,11 +298,12 @@ oxwm.key.bind({ }, "XF86MonBrightnessDown", oxwm.spawn({ "~/.local/bin/dunst-bri
 
 -- oxwm.autostart("dbus-update-activation-environment --all")
 -- oxwm.autostart("gnome-keyring-daemon --start --components=secrets")
--- oxwm.autostart("picom")
--- oxwm.autostart("feh --bg-scale --randomize ~/Pictures/Wallpapers/*")
--- oxwm.autostart("dunst -startup_notification")
--- oxwm.autostart("nm-applet")
--- oxwm.autostart("wireplumber")
--- oxwm.autostart("pipewire")
--- oxwm.autostart("pipewire-pulse")
--- oxwm.autostart("brightnessctl set 25%")
+oxwm.autostart("picom")
+oxwm.autostart("feh --bg-scale --randomize ~/Pictures/Wallpapers/*")
+oxwm.autostart("dunst -startup_notification")
+oxwm.autostart("wireplumber")
+oxwm.autostart("pipewire")
+oxwm.autostart("pipewire-pulse")
+oxwm.autostart("brightnessctl set 25%")
+oxwm.autostart("surge server start")
+oxwm.autostart("~/.local/bin/lock.sh")
